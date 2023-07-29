@@ -4,33 +4,26 @@ using UnityEngine;
 
 public abstract class Command //sanal sınıf oluşturarak imza sınıfımızla classlarımza imzalarını vereceğiz.
 {
-    public abstract void Execute(Animator anim);
+    public abstract void Execute(Animator anim,bool animState);
 }
 
-public class Idle : Command
-{
-    public override void Execute(Animator anim)
-    {
-        anim.SetTrigger("isIdle");
-    }
-}
 public class Run : Command
 {
-    public override void Execute(Animator anim)
+    public override void Execute(Animator anim, bool animState)
     {
-        anim.SetTrigger("isRun");
+        anim.SetBool("isRunning", animState);
     }
 }
 public class Attack : Command
 {
-    public override void Execute(Animator anim)
+    public override void Execute(Animator anim, bool animState)
     {
         anim.SetTrigger("isAttack");
     }
 }
 public class DoNothing : Command
 {
-    public override void Execute(Animator anim)
+    public override void Execute(Animator anim, bool animState)
     {
 
     }

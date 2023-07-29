@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JoystickPlayerMovement : MonoBehaviour
+public class JoystickPlayerExample : MonoBehaviour
 {
     public float speed;
     public float rotationSpeed;
     public FloatingJoystick floatingJoystick;
+    public Rigidbody rb;
 
     public void FixedUpdate()
     {
