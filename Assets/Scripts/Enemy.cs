@@ -1,72 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public LevelController levelController;
+    public GameManager gameManager;
     public int enemyLevel;
+    public TextMeshProUGUI textMeshPro;
+
+    private float _attackRange=3.7f;
+    private float attackRadius = 80f;
+
     public InputHandler inputHandlerFriendly;
     public InputHandler inputHandlerEnemy;
-    public GameManager gameManager;
-    private float _attackRange=10;
-    private float attackRadius = 45;
-    
-   
+    public LevelController levelController;
+    private void Start()
+    {
+        textMeshPro.text="Lv."+enemyLevel.ToString();
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("FriendlyCharacter"))
         {
-            inputHandlerEnemy.isMoveEnemy = false;
-            if (levelController.Level >= enemyLevel)
-            {
-                inputHandlerFriendly.isAttack = true;
-                Destroy(this.gameObject, 1f);
-                Debug.Log("Enemy is dead.");
-            }
-            else
-            {
-                inputHandlerEnemy.isAttack = true;
-                Destroy(other.gameObject, 1f);
-                Debug.Log("Friendly character is dead.");
-                gameManager.GameOver();
-            }
-
+            AttackControl();
         }
     }
-    private void EnemyAttackingRange()
-    {
-        //Collider[] hitColliders = Physics.
-    }
-
-    public float algilamaMesafesi = 10f;
-    public float algilamaAci = 70f;
-
-    void Update()
-    {
-        // Düşmanları tespit etmek için bir dizi oluşturuyoruz
-        Collider[] tespitEdilenler = Physics.OverlapSphere(transform.position, algilamaMesafesi);
-
-        foreach (Collider tespitEdilen in tespitEdilenler)
-        {
-            // Karakterin önünde mi kontrol ediyoruz
-            Vector3 yon = (tespitEdilen.transform.position - transform.position).normalized;
-            float aci = Vector3.Angle(transform.forward, yon);
-
-            // Eğer düşmanın açısı algilamaAci değişkeni ile belirtilen açı aralığı içindeyse, düşmanı algıladık diyebiliriz
-            if (aci <= algilamaAci / 2f)
-            {
-                if (tespitEdilen.gameObject.CompareTag("FriendlyCharacter"))
-                {
-                    Debug.Log("karakter tespit edildi");
-                }
-                //Debug.Log("Düşman algılandı: " + tespitEdilen.name);
-            }
-        }
-    }
-   
     
+
+    private void FixedUpdate()
+    {
+        EnemyDetectionRange();
+    }
+    private void EnemyDetectionRange()
+    {
+        
+        Collider[] hits = Physics.OverlapSphere(transform.position, _attackRange);
+
+        foreach (Collider hit in hits)
+        {
+            
+            Vector3 direction = (hit.transform.position - transform.position).normalized;
+            float radius = Vector3.Angle(transform.forward, direction);
+
+           
+            if (radius <= attackRadius / 2f)
+            {
+                if (hit.gameObject.CompareTag("FriendlyCharacter"))
+                {
+                    Debug.Log("Character is detected.");
+                    AttackControl();
+                }
+                
+            }
+        }
+    }
+    private void AttackControl()
+    {
+        inputHandlerEnemy.isMoveEnemy = false;
+        if (levelController.Level >= enemyLevel)
+        {
+            inputHandlerFriendly.isAttack = true;
+            Destroy(this.gameObject, 1f);
+            Debug.Log("Enemy is dead.");
+        }
+        else
+        {
+            inputHandlerEnemy.isAttack = true;
+            Destroy(inputHandlerFriendly.gameObject, 1f);
+            Debug.Log("Friendly character is dead.");
+            gameManager.GameOver();
+        }
+    }
+
+
+
+
 }
 
 

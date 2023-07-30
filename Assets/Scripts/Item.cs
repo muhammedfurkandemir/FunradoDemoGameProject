@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
     public Event PickUp;
+    public int upgradeLevel;
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("FriendlyCharacter"))
         {
-            Debug.Log("karakter geldi");
+            Debug.Log("Character upgrade");
             PickUp.Occured(this.gameObject);
             this.gameObject.GetComponent<MeshRenderer>().enabled = false;
             this.gameObject.GetComponent<Collider>().enabled = false;

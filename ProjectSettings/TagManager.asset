@@ -7,6 +7,9 @@ TagManager:
   - FriendlyCharacter
   - DestinationPoint
   - EnemyCharacter
+  - BlueDoorLock
+  - RedDoorLock
+  - Key
   layers:
   - Default
   - TransparentFX

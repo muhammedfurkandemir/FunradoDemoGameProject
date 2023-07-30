@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
@@ -20,13 +18,15 @@ public class InputHandler : MonoBehaviour
     
     void Update()
     {
-        
-
-        if (Input.GetMouseButtonDown(0) && this.gameObject.CompareTag("FriendlyCharacter")) 
+        GameInput();
+    }
+    void GameInput()
+    {
+        if (Input.GetMouseButtonDown(0) && this.gameObject.CompareTag("FriendlyCharacter"))
         {
-            runningMovement.Execute(anim,true);
+            runningMovement.Execute(anim, true);
         }
-        if (this.gameObject.CompareTag("EnemyCharacter")&& isMoveEnemy)
+        if (this.gameObject.CompareTag("EnemyCharacter") && isMoveEnemy)
         {
             runningMovement.Execute(anim, true);
         }
@@ -34,13 +34,13 @@ public class InputHandler : MonoBehaviour
         {
             runningMovement.Execute(anim, false);
         }
-        if (Input.GetMouseButtonUp(0) && this.gameObject.CompareTag("FriendlyCharacter")) 
-        { 
-            runningMovement.Execute(anim,false);
+        if (Input.GetMouseButtonUp(0) && this.gameObject.CompareTag("FriendlyCharacter"))
+        {
+            runningMovement.Execute(anim, false);
         }
         if (isAttack)
         {
-            atackMovement.Execute(anim,true);
+            atackMovement.Execute(anim, true);
             isAttack = !isAttack;
         }
     }

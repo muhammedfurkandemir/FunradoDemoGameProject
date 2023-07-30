@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.Events; //https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html
+using UnityEngine.Events; 
 
-[System.Serializable]//https://docs.unity3d.com/ScriptReference/Serializable.html 
-//https://docs.unity3d.com/Manual/script-Serialization.html#HowUnityUsesSerialization
+[System.Serializable]
 public class UnityGameObjectEvent : UnityEvent<GameObject> { }
-//https://docs.unity3d.com/ScriptReference/Events.UnityEvent_1.html
 public class EventListener : MonoBehaviour
 {
     public Event gEvent;

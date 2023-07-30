@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.VersionControl;
 
 public class LevelController : MonoBehaviour
 {
     public int Level = 1;
     public TextMeshProUGUI _textMeshProUGUI;
+    public Item item;
     void Start()
     {
         _textMeshProUGUI = GetComponent<TextMeshProUGUI>();
@@ -15,7 +13,7 @@ public class LevelController : MonoBehaviour
 
     public void SetLevel(GameObject go)
     {
-        Level++;
+        Level += item.upgradeLevel;
         _textMeshProUGUI.text = "Lv."+ Level;
     }
     

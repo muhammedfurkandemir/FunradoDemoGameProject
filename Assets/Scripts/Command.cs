@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Command //sanal sınıf oluşturarak imza sınıfımızla classlarımza imzalarını vereceğiz.
+public abstract class Command 
 {
     public abstract void Execute(Animator anim,bool animState);
 }
